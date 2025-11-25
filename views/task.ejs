@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Tasks</title>
+    <style>
+        h2 {
+            text-align: center;
+        }
+
+        .task-form {
+            max-width: 450px;
+            background: white;
+            padding: 20px;
+            margin: 0 auto 30px auto;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .task-form input,
+        .task-form textarea,
+        .task-form select,
+        .task-form button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            font-size: 16px;
+        }
+
+
+        button {
+            background: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #1e7c33;
+        }
+
+        .task-list {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .task {
+            background: white;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 6px;
+            box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .task h3 {
+            margin: 0 0 5px;
+        }
+
+        .task button {
+            background: #dc3545;
+            margin-top: 10px;
+        }
+
+        .update-btn {
+            background: #007bff;
+            margin-right: 10px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+            overflow-x: hidden;
+        }
+    </style>
+</head>
+
+<body>
+
+    <%- include('partials/nav') %>
+
+        <h2>Your Tasks</h2>
+
+        <!-- Task Creation Form -->
+        <div class="task-form">
+            <h3>Create Task</h3>
+
+            <input type="text" id="title" placeholder="Task Title" required />
+            <textarea id="description" placeholder="Task Description"></textarea>
+
+            <button onclick="createTask()">Create Task</button>
+        </div>
+
+        <!-- Task List -->
+        <div class="task-list" id="taskList"></div>
+
+        <script>
+            async function fetchTasks() {
+                const res = await fetch("/api/v1/tasks", {
+                    method: "GET",
+                    credentials: "include"   // IMPORTANT for JWT cookie
+                });
+
+                const tasks = await res.json();
+                displayTasks(tasks);
+            }
+
+            function displayTasks(tasks) {
+                const container = document.getElementById("taskList");
+                container.innerHTML = "";
+
+                tasks.forEach(task => {
+                    const div = document.createElement("div");
+                    div.className = "task";
+
+                    div.innerHTML = `
+                    <h3>${task.title}</h3>
+                    <p>${task.description || ''}</p>
+                    <p><strong>Status:</strong> ${task.status}</p>
+
+                    <button class="update-btn" onclick="updateTask('${task._id}')">Update</button>
+                    <button onclick="deleteTask('${task._id}')">Delete</button>
+                `;
+
+                    container.appendChild(div);
+                });
+            }
+
+            // Create a task
+            async function createTask() {
+                const title = document.getElementById("title").value;
+                const description = document.getElementById("description").value;
+
+                const res = await fetch("/api/v1/tasks", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    credentials: "include",
+                    body: JSON.stringify({ title, description })
+                });
+
+                if (res.ok) {
+                    alert("Task created!");
+                    fetchTasks();
+                } else {
+                    alert("Error creating task");
+                }
+            }
+
+            // Delete task
+            async function deleteTask(id) {
+                if (!confirm("Delete this task?")) return;
+
+                const res = await fetch(`/api/v1/tasks/${id}`, {
+                    method: "DELETE",
+                    credentials: "include"
+                });
+
+                if (res.ok) {
+                    fetchTasks();
+                } else {
+                    alert("Error deleting task");
+                }
+            }
+
+            // Update task
+            async function updateTask(id) {
+                const newTitle = prompt("Enter new title:");
+                const newDescription = prompt("Enter new description:");
+                const newStatus = prompt("Enter status (pending/completed):");
+
+                const res = await fetch(`/api/v1/tasks/${id}`, {
+                    method: "PUT",
+                    headers: { "Content-Type": "application/json" },
+                    credentials: "include",
+                    body: JSON.stringify({
+                        title: newTitle,
+                        description: newDescription,
+                        status: newStatus
+                    })
+                });
+
+                if (res.ok) {
+                    fetchTasks();
+                } else {
+                    alert("Error updating task");
+                }
+            }
+
+            // Load tasks on page load
+            fetchTasks();
+        </script>
+
+</body>
+
+</html>
