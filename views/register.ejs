@@ -11,67 +11,135 @@
             background: #f4f4f4;
             font-family: Arial, sans-serif;
 
-
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+
+            min-height: 100vh;
+            /* FIX: replaces height:100vh */
+            padding-top: 20px;
+            /* FIX: avoids top-white-gap */
+            padding-bottom: 20px;
+            /* FIX: avoids bottom-white-gap */
         }
 
+
+        /* BIGGER REGISTER CARD */
         .card {
-            width: 350px;
+            width: 90%;
+            max-width: 460px;
+            /* 🔥 bigger card */
             background: white;
-            padding: 25px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            border-radius: 14px;
+            box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.15);
         }
 
+        /* BIG HEADING */
         h2 {
             text-align: center;
-            margin-bottom: 15px;
+            margin-bottom: 25px;
+            font-size: 34px;
+            /* 🔥 big heading */
         }
 
+        /* BIGGER INPUTS & SELECT */
         input,
         select {
             width: 100%;
-            padding: 12px;
-            margin: 12px 0;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-            font-size: 16px;
+            padding: 18px;
+            /* 🔥 bigger touch area */
+            margin: 16px 0;
+            border-radius: 10px;
+            border: 1px solid #bdbdbd;
+            font-size: 20px;
+            /* 🔥 big input text */
             box-sizing: border-box;
         }
 
+        /* BIG LABELS */
+        label {
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        /* BIG BUTTON */
         button {
             width: 100%;
-            padding: 12px;
+            padding: 18px;
+            /* 🔥 bigger button */
             background: #28a745;
             color: white;
             border: none;
-            border-radius: 5px;
+            border-radius: 10px;
             cursor: pointer;
-            margin-top: 15px;
-            font-size: 16px;
+            margin-top: 20px;
+            font-size: 22px;
+            /* 🔥 bigger button text */
             box-sizing: border-box;
         }
-
 
         button:hover {
             background: #1f7c35;
         }
 
+        /* ERROR MESSAGE BIG */
         .error {
             color: red;
             text-align: center;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
             font-weight: bold;
+            font-size: 18px;
         }
 
+        /* BIG FOOTER LINK */
         .link {
             text-align: center;
-            margin-top: 10px;
+            margin-top: 15px;
+            font-size: 18px;
         }
-       
+
+        .link a {
+            font-size: 20px;
+            text-decoration: none;
+            color: #2563eb;
+            font-weight: 600;
+        }
+
+        /* EXTRA LARGE UI ON SMALL MOBILE */
+        @media (max-width: 450px) {
+
+            .card {
+                padding: 32px 25px;
+            }
+
+            h2 {
+                font-size: 32px;
+            }
+
+            input,
+            select {
+                padding: 20px;
+                font-size: 22px;
+            }
+
+            label {
+                font-size: 22px;
+            }
+
+            button {
+                padding: 20px;
+                font-size: 24px;
+            }
+
+            .link {
+                font-size: 20px;
+            }
+
+            .link a {
+                font-size: 22px;
+            }
+        }
     </style>
 </head>
 
@@ -104,7 +172,7 @@
                         <option value="admin">Admin</option>
                     </select>
 
-                    <button  type="submit">Register</button>
+                    <button type="submit">Register</button>
                 </form>
 
                 <p class="link">
