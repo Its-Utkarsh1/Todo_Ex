@@ -20,38 +20,31 @@ app.set("views", path.resolve("./views"));
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-app.use(checkForAuthentication);
-
+// 🚀 CONNECT FIRST, THEN START SERVER
 connectToDB(process.env.MONGO_URL)
-    .then(() => {
-        console.log("Connected to MongoDB");
-        createDefaultAdmin();
-    })
-    .catch(err => console.error("MongoDB connection error:", err));
+  .then(() => {
+    console.log("Connected to MongoDB");
+    createDefaultAdmin();
 
-app.use("/api/v1/user", userRoutes);
-app.use("/api/v1/tasks", taskRoutes);
+    // ✅ NOW load authentication middleware
+    app.use(checkForAuthentication);
 
-app.get("/", (req, res) => {
-    res.render("index");  
-});
+    // ✅ NOW load all routes
+    app.use("/api/v1/user", userRoutes);
+    app.use("/api/v1/tasks", taskRoutes);
 
-app.get("/register", (req, res) => {
-    res.render("register");
-});
+    // Pages
+    app.get("/", (req, res) => res.render("index"));
+    app.get("/register", (req, res) => res.render("register"));
+    app.get("/login", (req, res) => res.render("login"));
+    app.get("/dashboard", (req,res) => res.render("dashboard"));
+    app.get("/task", (req,res) => res.render("task"));
 
-app.get("/login", (req, res) => {
-    res.render("login");
-});
-app.get("/dashboard", (req,res)=>{
-    res.render("dashboard");
-});
-app.get("/task", (req,res)=>{
-    res.render("task");
-})
-
-
-const PORT = process.env.PORT || 4125;
-app.listen(PORT, () => {
-    console.log(`Server is Running on http://localhost:${PORT}`);
-});
+    const PORT = process.env.PORT || 4125;
+    app.listen(PORT, () => {
+      console.log(`Server is Running on http://localhost:${PORT}`);
+    });
+  })
+  .catch(err => {
+    console.error("MongoDB connection error:", err);
+  });
