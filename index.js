@@ -21,7 +21,7 @@ app.use(cookieParser());
 
 app.use(checkForAuthentication);
 
-connectToDB("mongodb://localhost:27017/Primetrade")
+connectToDB("process.env.MONGO_URL")
     .then(() => {
         console.log("Connected to MongoDB");
         createDefaultAdmin();
