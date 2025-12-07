@@ -1,3 +1,4 @@
+require("dotenv").config();
 const path = require("path");
 const express = require("express");
 const cookieParser = require("cookie-parser");
@@ -21,7 +22,7 @@ app.use(cookieParser());
 
 app.use(checkForAuthentication);
 
-connectToDB("process.env.MONGO_URL")
+connectToDB(process.env.MONGO_URL)
     .then(() => {
         console.log("Connected to MongoDB");
         createDefaultAdmin();
