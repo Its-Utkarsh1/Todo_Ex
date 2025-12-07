@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>Login</title>
@@ -17,68 +18,130 @@
       height: 100vh;
     }
 
+    /* Bigger login box for mobile */
     .login-box {
       background: white;
-      padding: 35px;
-      border-radius: 8px;
-      width: 380px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      padding: 40px;
+      border-radius: 50px;
+      width: 90%;
+      /* More flexible on mobile */
+      max-width: 420px;
+      /* Bigger than before */
+      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.12);
     }
 
-    /* Input and button same size */
+    /* Bigger heading */
+    .login-box h2 {
+      font-size: 30px;
+      /* Bigger */
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    /* Bigger label */
+    label {
+      font-size: 18px;
+      font-weight: 600;
+    }
+
+    /* Bigger inputs */
     input {
       width: 100%;
-      padding: 12px;         /* SAME AS BUTTON */
-      margin: 12px 0;
+      padding: 15px;
+      /* Bigger tap area */
+      margin: 14px 0;
       border: 1px solid #ccc;
-      border-radius: 5px;    /* SAME AS BUTTON */
-      font-size: 15px;       /* SAME AS BUTTON */
+      border-radius: 8px;
+      font-size: 17px;
+      /* Bigger text */
       box-sizing: border-box;
     }
-    a{
-        text-decoration: none;
+
+    /* Links no underline */
+    a {
+      text-decoration: none;
+      color: #2563eb;
+      font-size: 16px;
+      font-weight: 600;
     }
 
+    /* Bigger button */
     button {
       width: 100%;
-      padding: 12px;
+      padding: 15px;
       background: #333;
       color: white;
       border: none;
       cursor: pointer;
-      font-size: 15px;
-      border-radius: 5px;
+      font-size: 18px;
+      /* Bigger text */
+      border-radius: 8px;
+      margin-top: 4px;
     }
 
     button:hover {
       background: #555;
     }
+
+    /* Improve small mobile screens */
+    @media (max-width: 450px) {
+  
+  .login-box {
+    padding: 40px 25px;
+  }
+
+  .login-box h2 {
+    font-size: 34px;
+  }
+
+  input {
+    padding: 22px;
+    font-size: 22px;
+  }
+
+  button {
+    padding: 22px;
+    font-size: 24px;
+  }
+
+  label {
+    font-size: 24px;
+  }
+
+  a {
+    font-size: 22px;
+  }
+}
   </style>
 
 </head>
+
 <body>
 
   <div class="login-box">
     <h2>Login</h2>
 
-    <% if (typeof error !== "undefined") { %>
-      <p style="color:red;"><%= error %></p>
-    <% } %>
+    <% if (typeof error !=="undefined" ) { %>
+      <p style="color:red;">
+        <%= error %>
+      </p>
+      <% } %>
 
-    <form action="/api/v1/user/login" method="POST">
-      <label>Email</label>
-      <input type="email" name="email" required>
+        <form action="/api/v1/user/login" method="POST">
+          <label>Email</label>
+          <input type="email" name="email" required>
 
-      <label>Password</label>
-      <input type="password" name="password" required>
+          <label>Password</label>
+          <input type="password" name="password" required>
 
-      <button type="submit">Login</button>
-    </form>
+          <button type="submit">Login</button>
+        </form>
 
-    <p style="margin-top:15px;">
-      Don't have an account? <a href="/register">Register</a>
-    </p>
+        <p style="margin-top:15px;">
+          Don't have an account? <a href="/register">Register</a>
+        </p>
   </div>
 
 </body>
+
 </html>
