@@ -12,7 +12,6 @@
             font-family: "Segoe UI", Arial, sans-serif;
             background: #f3f4f6;
             overflow-x: hidden;
-            /* fixes sideways scroll */
         }
 
         * {
@@ -21,10 +20,10 @@
             box-sizing: border-box;
         }
 
-        /* HERO SECTION */
+        /* ---------------- HERO SECTION ---------------- */
         .hero {
-            min-height: 62.1vh;
-            padding: 0 15px;
+            min-height: 70vh;
+            padding: 35px 20px;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -33,56 +32,50 @@
             text-align: center;
         }
 
-
-
         .hero h1 {
-            font-size: 36px;
-            /* reduced */
+            font-size: 30px;
             font-weight: 700;
             color: #1e293b;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
+            line-height: 1.2;
         }
 
         .hero p {
-            font-size: 16px;
+            font-size: 15px;
             color: #475569;
-            width: 90%;
-            /* reduced width */
-            max-width: 550px;
-            /* reduced */
+            width: 93%;
+            max-width: 420px;
             margin: 0 auto;
-            line-height: 1.4;
+            line-height: 1.5;
         }
 
         .btn {
             display: inline-block;
-            padding: 10px 20px;
-            /* reduced */
+            padding: 12px 22px;
             background: #2563eb;
             color: white;
-            border-radius: 6px;
-            margin-top: 18px;
-            /* reduced */
+            border-radius: 8px;
+            margin-top: 22px;
             text-decoration: none;
-            font-size: 15px;
+            font-size: 15.5px;
             font-weight: 600;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+            transition: 0.25s ease;
         }
 
         .btn:hover {
             background: #1d4ed8;
+            transform: translateY(-2px);
         }
 
-        /* FEATURES */
+        /* ---------------- FEATURES SECTION ---------------- */
         .features {
-
-            padding: 40px 15px;
-            /* reduced */
+            padding: 35px 20px;
             text-align: center;
         }
 
         .features h2 {
-            font-size: 26px;
-            /* reduced */
+            font-size: 24px;
             color: #1e293b;
             margin-bottom: 25px;
             font-weight: 700;
@@ -90,50 +83,106 @@
 
         .feature-container {
             display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 100px;
-            /* reduced */
-            max-width: 100%;
+            flex-direction: column;
+            align-items: center;
+            gap: 18px;
         }
 
         .box {
-            width: 250px;
-            /* smaller box */
+            width: 95%;
+            max-width: 380px;
             background: white;
-            padding: 18px;
-            border-radius: 10px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-            transition: 0.3s ease;
+            padding: 18px 16px;
+            border-radius: 12px;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+            transition: 0.25s ease;
         }
 
         .box:hover {
-            transform: translateY(-3px);
+            transform: translateY(-4px);
         }
 
         .box h3 {
-            font-size: 18px;
-            margin-bottom: 6px;
+            font-size: 17px;
+            margin-bottom: 8px;
             color: #1e293b;
+            font-weight: 600;
         }
 
         .box p {
             color: #64748b;
             font-size: 14px;
-            line-height: 1.3;
+            line-height: 1.4;
         }
 
-        /* FOOTER */
+        /* ---------------- FOOTER ---------------- */
         .footer {
-            padding: 12px;
+            padding: 15px;
             text-align: center;
             background: #1e293b;
             color: white;
-            margin-top: 20px;
-            /* reduced */
+            margin-top: 25px;
             font-size: 13px;
+            letter-spacing: 0.2px;
         }
+
+        /* ---------------- Large Screens (Tablet & Desktop) ---------------- */
+        @media (min-width: 768px) {
+            .hero h1 {
+                font-size: 100px;
+            }
+
+            .hero p {
+                font-size: 19px;
+                max-width: 650px;
+                line-height: 1.7;
+            }
+
+            .feature-container {
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 30px;
+            }
+
+            .btn {
+                font-size: 40px;
+                white-space: nowrap;
+                padding: 10px 32px;
+            }
+
+            .box {
+                width: 260px;
+            }
+
+            .feature-container {
+                flex-direction: row;
+                flex-wrap: wrap;
+                gap: 35px;
+                justify-content: center;
+            }
+
+            .box {
+                width: 344px;
+                /* 🔥 bigger desktop cards */
+                padding: 24px;
+            }
+
+            .box h3 {
+                font-size: 22px;
+            }
+
+            .box p {
+                font-size: 16px;
+                line-height: 1.7;
+            }
+            
+        }
+        
+        
     </style>
+
+
 
 </head>
 
@@ -144,15 +193,15 @@
 
         <!-- HERO SECTION -->
         <div class="hero">
-            <h1>Welcome to TODO App</h1>
+            <h1>Welcome to TODO List</h1>
             <p>The simplest, smartest way to manage your daily tasks. Increase your productivity, stay organized, and
                 accomplish more every day with ease.</p>
             <% if (!user) { %>
                 <a class="btn" href="/login">Get Started</a>
                 <% } %>
-            <% if (user) { %>
-                <a class="btn" href="/task">View Your Tasks</a>
-            <% } %>    
+                    <% if (user) { %>
+                        <a class="btn" href="/task">View Your Tasks</a>
+                        <% } %>
         </div>
 
         <!-- FEATURES -->
